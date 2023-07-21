@@ -11,7 +11,8 @@ const ContactForm = () => {
   const [number, setNumber] = useState('');
   const contacts = useSelector(selectContacts);
 
-    const handleAddContact = newContact => {
+  const handleAddContact = newContact => {
+       dispatch(addContact(newContact));
       const isContactExists = contacts.some(
         contact => contact.name.toLowerCase() === newContact.name.toLowerCase()
       );

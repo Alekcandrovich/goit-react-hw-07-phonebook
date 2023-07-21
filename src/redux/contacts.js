@@ -1,17 +1,19 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { fetchContactsApi, addContactApi, deleteContactApi } from '../api/api';
 
-const contactsSlice = createSlice({
-  name: 'contacts',
-  initialState: [],
-  reducers: {
-    addContact: (state, action) => {
-      state.push(action.payload);
-    },
-    deleteContact: (state, action) => {
-      return state.filter(contact => contact.id !== action.payload);
-    }
-  }
-})
+const fetchContacts = createAsyncThunk('contacts/fetchAll', async () => {
+    const response = await fetchContactsApi();
+    return response.data;
+});
 
-export const { addContact, deleteContact } = contactsSlice.actions
-export default contactsSlice.reducer
+const addContact = createAsyncThunk('contacts/addContact', async newContact => {
+    const response = await addContactApi(newContact);
+    return response.data;
+});
+
+const deleteContact = createAsyncThunk('contacts/deleteContact', async id => {
+    await deleteContactApi(id);
+    return id;
+});
+
+export { fetchContacts, addContact, deleteContact };
