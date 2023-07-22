@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = `https://64aec52dc85640541d4dabc5.mockapi.io/api`;
+const API_URL = `https://64aec52dc85640541d4dabc5.mockapi.io`;
 
 export const fetchContactsApi = () =>
     axios.get(`${API_URL}/contacts`);
